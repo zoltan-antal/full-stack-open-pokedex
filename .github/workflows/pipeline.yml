@@ -42,7 +42,7 @@ jobs:
         with:
           severity: info
           details: Succeeded!
-          webhookUrl: ${{ secrets.DDISCORD_WEBHOOK }}
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
       - name: failure
         uses: rjstone/discord-webhook-notify@v1
         if: failure()
