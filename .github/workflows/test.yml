@@ -10,15 +10,13 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - name: github context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
-      - name: commits
-        env:
-          COMMITS: ${{ toJson(github.event.commits) }}
-        run: echo "$COMMITS"
       - name: commit messages
         env:
           COMMIT_MESSAGES: ${{ join(github.event.commits.*.message) }}
         run: echo "$COMMIT_MESSAGES"
+      - name: contains skip
+        run: echo "TO BE SKIPPED"
+        if: contains(join(github.event.commits.*.message), '#skip')
+      - name: does not contains skip
+        run: echo "NOT TO BE SKIPPED"
+        if: ! contains(join(github.event.commits.*.message), '#skip')
