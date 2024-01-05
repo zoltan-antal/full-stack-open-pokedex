@@ -42,15 +42,23 @@ jobs:
         if: success()
         with:
           severity: info
-          details: Test Succeeded!
+          details: Succeeded!
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
       - name: failure
         uses: rjstone/discord-webhook-notify@v1
         if: failure()
         with:
-            severity: error
-            details: Test Failed!
-            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          severity: error
+          details: Failed!
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: cancellation
+        uses: rjstone/discord-webhook-notify@v1
+        if: cancelled()
+        with:
+          severity: warn
+          details: Cancelled!
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+
 
   tag_release:
     needs: [simple_deployment_pipeline]
