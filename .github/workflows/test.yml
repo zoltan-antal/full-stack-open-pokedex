@@ -16,7 +16,7 @@ jobs:
         run: echo "$COMMIT_MESSAGES"
       - name: contains skip
         run: echo "TO BE SKIPPED"
-        if: 'contains(join(github.event.commits.*.message), "#skip")'
+        if: ! (contains(join(github.event.commits.*.message), '#skip'))
       - name: does not contains skip
         run: echo "NOT TO BE SKIPPED"
-        if: '!contains(join(github.event.commits.*.message), "#skip")'
+        if: contains(join(github.event.commits.*.message), '#skip')
